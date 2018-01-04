@@ -1,7 +1,6 @@
 import json
 import os
 import sys
-from logging import ShortLog
 
 '''
     util function to seprate processed_data.json
