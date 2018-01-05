@@ -17,6 +17,9 @@ class CNN():
             every_n_iter=50)
 
     def train(self):
+        '''
+            training process
+        '''
         self.train_input_fn = tf.estimator.inputs.numpy_input_fn(
             x={'x': self.train_data},
             y=train_labels,
@@ -30,8 +33,48 @@ class CNN():
 
     def cnn_model_fn():
         '''
-            Model for the cnn layers
+            model for the cnn layers
         '''
+
+        #### INPUT LAYER
+        self.input_layer = tf.reshape(features['x'], [-1, 28, 28, 1])
+
+        #### CONVULUTIONAL LAYER 1
+        self.conv1 = tf.layers.conv2d(
+            inputs=self.input_layer,
+            filters=32,
+            kernel_size=[5,5],
+            padding='same',
+            activation=tf.nn.relu)
+
+        #### POOLING LAYER 1
+        self.pool1 = tf.layers.max_pooling2d(
+            inputs=self.conv1,
+            pool_size=[2, 2],
+            strides=2)
+
+        ### CONVULUTIONAL LAYER 2
+        self.conv2 = tf.layers.conv2d(
+            inputs=self.pool1,
+            filters=64,
+            padding='same',
+            activation=tf.nn.relu)
+
+        ### POOLING LAYER 2
+        self.pool2 = tf.layers.max_pooling2d(
+            inputs=self.conv2,
+            pool_size=[2, 2],
+            strides=2)
+
+        ### DENSE LAYER
+        self.pool2_flat = tf.reshape(
+            pool2,
+            [-1, 7 * 7 * 64])
+        self.dense = tf.layers.dense(
+            inputs=self.pool2_flat,
+            units=1024,
+            activation=tf.nn.relu)
+
         return true
 
 cnn = CNN()
