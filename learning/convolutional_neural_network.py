@@ -35,7 +35,6 @@ class CNN():
         '''
             model for the cnn layers
         '''
-
         #### INPUT LAYER
         self.input_layer = tf.reshape(features['x'], [-1, 28, 28, 1])
 
@@ -74,7 +73,30 @@ class CNN():
             inputs=self.pool2_flat,
             units=1024,
             activation=tf.nn.relu)
+        self.dropout = tf.layers.dropout(
+            inputs=dense,
+            rate=0.4,
+            training=self.mode == tf.estimator.ModeKeyes.TRAIN)
 
-        return true
+        ### LOGITS LAYER
+        self.logits = tf.layers.dense(
+            inputs=self.dropout,
+            units=10)
+
+    def generate_predictions(self):
+        '''
+            generate predictions
+        '''
+        self.predictions = {
+            'classes': tf.argmax(
+                inputs.self.logits,
+                axis=1),
+            'probabilities': tf.nn.softmax(
+                logits,
+                name='softmax_tensor')
+        }
+
+    def calculate_loss(self):
+        return True
 
 cnn = CNN()
