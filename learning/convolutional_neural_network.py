@@ -97,6 +97,36 @@ class CNN():
         }
 
     def calculate_loss(self):
-        return True
+        '''
+            calculate loss for both train and eval modes
+        '''
+        self.onehot_labels = tf.one_hot(
+            indices=tf.cast(labels, tf.int32),
+            depth=10)
+        self.loss = tf.losses.softmax_cross_entropy(
+            onehot_labels=self.onehot_labels,
+            logits=self.logits)
+
+        if mode == tf.estimator.ModeKeys.Train:
+            self.optimizer = tf.train.GradientdescentOptimizer(learing_rate=0.001)
+            self.train_op = optimizer.minimize(
+                loss=self.loss,
+                global_step=tf.train.get_global_step())
+
+            return tf.estimator.EstimatorSpec(
+                mode=self.mode,
+                loss=self.loss,
+                train_op=self.train_op)
+
+        self.eval_metric_ops = {
+            'accuracy': tf.metrics.accuracy(
+                labels=self.labels,
+                predictions=self.predictions['classes'])
+        }
+
+        return tf.esimator.EsimatorSpec(
+            mode=self.mode,
+            loss=self.loss,
+            eval_metric_ops=self.eval_metric_ops)
 
 cnn = CNN()
