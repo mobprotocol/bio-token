@@ -7,9 +7,9 @@ the solution, combine face, ekg, and eeg data --> .01 ^ n
 Keep false positives as low as possible, some leniency to false negatives
 
 
-### Facial Recognition ###
+## Facial Recognition ##
 
-#### Data Set: #####
+### Data Set: ####
 youtube faces data set
 
 https://www.cs.tau.ac.il/~wolf/ytfaces/index.html#download
@@ -18,7 +18,7 @@ will need to sign up here to receive access to ftp server
 
 place in `data/youtube_faces/`
 
-#### Data Processing: #####
+####Data Processing: ####
 for now i am using json to organize data `person -> videos -> images`
 
 to process raw youtube_faces data into json:
@@ -42,14 +42,10 @@ Feature Detection: dlib
 
 Convolutional
 
-### EKC data ###
+## ECG data ##
 
 electrocardiogram using openbci system
 
 
 
 250 Hz sample rate
-
-## Random Practice ##
-
-### mnist Convolutional Network ###
