@@ -1,11 +1,19 @@
 import numpy as np
 import cv2
+import time
 
-cap = cv2.VideoCapture(0)
+capture_duration = 10 # seconds
+capture = cv2.VideoCapture(0)
 
-while(True):
+# codec an videowriter
+# fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# out = cv2.Video
+
+# capture video for 10 seconds
+start_time = time.time()
+while(time.time() - start_time < capture_duration):
     # catpure video frames
-    ret, frame = cap.read()
+    ret, frame = capture.read()
 
     # manipulate frames
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -14,5 +22,5 @@ while(True):
     cv2.imshow('frame', gray)
     cv2.waitKey(1)
 
-cap.release()
+capture.release()
 cv2.destroyAllWindows()
