@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 
-capture = cv2.VideoCapture('./data/captured/sean_pollock.avi')
+capture = cv2.VideoCapture('./data/captured/raw_video/sean_pollock.avi')
 
 ret, frame = capture.read()
 print(ret)
@@ -21,11 +21,9 @@ term_criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1)
 
 while(1):
     ret, frame = capture.read()
-    print(ret)
-    print(frame)
     if ret == True:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        dst = cv2.calcBlackProject([hsv], [0], roi_hist, [0,180], 1)
+        dst = cv2.calcBackProject([hsv], [0], roi_hist, [0,180], 1)
 
         # apply meanshift to get new location
         rest, track_window = cv2.meanShift(dst, track_window, term_criteria)
@@ -39,7 +37,7 @@ while(1):
         if k == 27:
             break
         else:
-            cv2.imwrite('./data/captured/sean_pollock/' + chr(k)    + '.jpg',img2)
+            cv2.imwrite('./data/captured/sean_pollock/' + chr(k) + '.jpg',img2)
 
 cv2.destroyAllWindows()
 capture.release()
