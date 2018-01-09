@@ -61,7 +61,20 @@ def main():
         shuffle=True)
 
     # train model
-    classifier.train(input_fn=train_input_fn, steps=1000)
+    with tf.device('/gpu:0'):
+        classifier.train(input_fn=train_input_fn, steps=10)
+
+    test_input_fn = tf.estimator.inputs.numpy_input_fn(
+        x={'x': np.array(training_set.data)},
+        y=np.array(training_set.target),
+        num_epochs=None,
+        shuffle=True)
+
+    # evaluate
+    with tf.device('/gpu:0'):
+        accuracy_score = classifier.evaluate(input_fn=test_input_fn)
+
+    print('\nTestAccuracy: {0:f}\n'.format(accuracy_score))
 
 if __name__ == '__main__':
     main()
