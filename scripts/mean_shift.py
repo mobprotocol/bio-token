@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+import sys
 
 capture = cv2.VideoCapture('./data/captured/raw_video/sean_pollock.avi')
 
@@ -10,9 +11,9 @@ print(frame)
 r, h, c, w = 250, 90, 400, 125
 track_window = (c, r, w, h)
 
-roi = frame[r: r+h, c: c+w]
+roi = frame[r: r + h, c: c + w]
 hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-mask = cv2.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
+mask = cv2.inRange(hsv_roi, np.array((0., 60.,32.)), np.array((180., 255., 255.)))
 roi_hist = cv2.calcHist([hsv_roi], [0], mask, [180], [0, 180])
 cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)
 
@@ -41,3 +42,9 @@ while(1):
 
 cv2.destroyAllWindows()
 capture.release()
+
+
+def main():
+
+if __name__ == '__main__':
+    main()
