@@ -2,6 +2,14 @@ import numpy as np
 import cv2
 
 def find_faces(frame):
+    '''
+        given an image with a face init
+        returns image with frames around face and eyes
+
+        args:
+            frame: cv2 image instance
+    '''
+    
     # pre-trained opencv haar cascade algorithm \
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
@@ -23,24 +31,7 @@ def find_faces(frame):
         for (ex,ey,ew,eh) in eyes:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
 
-    # display detected features
-    cv2.imshow('frame', frame)
-    cv2.waitKey(1)
-
-    # end session
-    cv2.destroyAllWindows()
-
-def main():
-
-if __name__ = '__main__':
-    # given first and list name
-    assert len(sys.argv) == 3
-
-    # fetch video from file sytsem
-    capture = cv2.VideoCapture('./data/captured/raw_video/{0}_{1}.avi'.format(sys.argv[0], sys.argv[1]))
-
-    # iterate through video
-    while(1):
-            ret, frame = capture.read()
             if ret == True:
                 find_faces(frame)
+
+    return frame
