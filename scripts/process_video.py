@@ -1,6 +1,7 @@
 import sys
 import cv2
 import os
+import codecs
 from find_faces import find_faces
 
 def main():
@@ -43,7 +44,7 @@ def main():
             face_image = find_faces(frame)
 
             # random 16 byte id
-            image_id = os.urandom(16)
+            image_id = codecs.encode(os.urandom(32), 'hex').decode()
 
             # write image to disk
             cv2.imwrite('{0}/{1}.jpg'.format(file_path, image_id), face_image)
