@@ -1,8 +1,11 @@
 import os
 import cv2
 
+# file paths for youtube faces data set
 file_path = './data/youtube_faces/aligned_images_DB/'
 file_write_path = './data/youtube_faces/face_images_DB/'
+
+# importing pre-trained haar cascade models
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
