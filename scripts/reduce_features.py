@@ -19,7 +19,7 @@ def main():
     feature_data = {}
 
     # iterate through data
-    for person in os.listdir('./processed_data')
+    for person in os.listdir('./processed_data'):
         feature_data[person] = []
         for image_name in os.listdir('./processed_data/{0}'.format(person)):
 
@@ -27,7 +27,7 @@ def main():
             image = cv2.imread('./processed_data/{0}/{1}'.format(person, image_name))
 
             # find landmark features with util fn
-            features = detect_features()
+            features = detect_features(image)
 
             # append feature set to json object
             feature_data[person].append(features)
