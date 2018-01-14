@@ -1,6 +1,6 @@
 import os
 import cv2
-
+import codecs
 # file paths for youtube faces data set
 file_path = './data/youtube_faces/aligned_images_DB/'
 file_write_path = './data/youtube_faces/face_images_DB/'

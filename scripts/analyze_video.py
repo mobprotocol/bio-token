@@ -6,12 +6,12 @@ def main():
     '''
         allows you to view face and eye detection of .avi video
         python3 ./scripts/analyze_video.py sean pollock
-        args:
+        cli args:
             first_name
             last_name
     '''
 
-    # fetch video from file s ystem
+    # fetch video from file system
     capture = cv2.VideoCapture('./data/captured/raw_video/{0}_{1}.avi'.format(sys.argv[1], sys.argv[2]))
 
     # iterate through video

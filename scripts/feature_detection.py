@@ -23,9 +23,6 @@ def detect_features(image):
     # find faces with pretrained dlib detector
     faces = detector(image, 1)
 
-    # all iamges should have only 1 face
-    assert len(faces) == 1
-
     # iterate throuch detected faces
     for (i, face) in enumerate(faces):
 

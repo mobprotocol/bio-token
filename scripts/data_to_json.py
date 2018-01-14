@@ -1,24 +1,31 @@
 import os
 import json
 
-def create_json_schema():
-    """ returns json schema for aligned images data"""
-    data_schema = {}
-    data_path = './data/youtube_faces/aligned_images_DB/'
-    for person in os.listdir(data_path):
-        if not person.startswith('.'):
-            data_schema[person] = {}
-            for imageset in os.listdir(data_path + person):
-                if not imageset.startswith('.'):
-                    data_schema[person][imageset] = []
-                    for image in os.listdir(data_path + person + '/' + imageset):
-                        data_schema[person][imageset].append(image)
-    return data_schema
-def write_schema(schema):
-    """ writes schema to json file """
-    print('made it here')
-    with open('./processed_data.json', 'w') as outfile:
-        json.dump(schema, outfile)
+def main():
+    '''
+        script creates json scheme out of processed data
+        first_last --> [.jpg, ...]
+    '''
 
-schema = create_json_schema()
-write_schema(schema)
+    # make sure processed_data exists
+    assert os.path.exists('./processed_data')
+    assert len(os.listdir('./processed_data')) > 0
+
+    # instantiate data obejct
+    data = {}
+
+    # iterate through data
+    for name in os.listdir('./processed_data'):
+        if not name.startswith('.'):
+            data[name] = []
+            for image_name in os.listdir('./processed_data/{0}'.format(name)):
+                if not image_name.startswith('.'):
+                    data[name].append(image_name)
+
+    # write json object to disk
+    with open('./data.json', 'w') as outfile:
+        json.dump(data, outfile)
+
+if __name__ == '__main__':
+    # start script
+    main()
