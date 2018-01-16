@@ -8,7 +8,6 @@ import cv2
     FACE NET
     convolutional neural network
     trains on 100 by 100 pixel labeled pictures
-    best
 '''
 
 class FaceNet():
@@ -119,17 +118,23 @@ class FaceNet():
     ''' setup-network '''
     ########################################
 
-    def train_network(self):
+    def train_network_model(self):
         with tf.name_scope('loss'):
             cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=self.y_, logits=self.y_conv)
 
         self.cross_entropy = tf.reduce_mean(cross_entropy)
 
         with tf.name_scope('adam_optimizer'):
-            train_step = tf.train.AdamOptimizer(1e-4).minimize(self.cross_entropy)
+            self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.cross_entropy)
 
         with tf.name_scope('accuracy'):
-            correct_pr
+            self.correct_prediction = tf.equal(tf.argmax(self.y_conv, 1), tf.argmax(self.y_, 1))
+
+    def train_network(self):
+        with tf.Session() as sess:
+            sess.run(tf.global_variables_initializer())
+            for in in range(200000):
+
     ########################################
     ''' start-evaluation '''
     ########################################
@@ -154,9 +159,18 @@ class FaceNet():
         print('Saving graph to: {0}',format(graph_location))
 
         with tf.Session() as sess:
-            for i in range(100000):
-                b
-
+            for i in range(1000):
+                batch = self.batch_data.next_batch(100)
+                if i % 100 == 0:
+                    train_accuracy = self.accuracy.eval({
+                        feed_dict={
+                            x: batch[0],
+                            y_: batch[1],
+                            keep_prob: 1.0 }})
+                    print('step {0}, training accuracy '.format(i, train_accuracy))
+                self.train_step.run(feed_dic={ x: batch[0], y: batch[1], keep_prob: 0.5 })
+            print('test accuracy %g' % accuracy.eval(feed_dict={
+                x: self.features, y_: self.labels, keep_prob: 1.0 }))
 
     ########################################
     ''' util-fns '''
@@ -175,7 +189,7 @@ class FaceNet():
         return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
 
     def max_pool_2x2(x):
-        return tf.nn.max_pool(x, ksise=[1, 2, 2, 1],
+        return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
             strides=[1, 2, 2, 1], padding='SAME')
 
     ########################################
