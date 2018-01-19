@@ -1,6 +1,9 @@
 import sys
 import cv2
+import os
 from find_faces import find_faces
+
+data_path = './data/captured/raw_video/'
 
 def main():
     '''
@@ -21,9 +24,8 @@ def main():
         ret, frame = capture.read()
 
         if ret == True:
-            # find face usint util fn
+            # face features
             face_image = find_faces(frame)
-
             # display detectd features
             cv2.imshow('face_image', face_image)
             cv2.waitKey(1)
@@ -36,9 +38,13 @@ def main():
     capture.release()
     cv2.destroyAllWindows()
 
+
 if __name__ == '__main__':
     # make sure we have first and last name
     assert len(sys.argv) == 3
+
+    # make sure data exists
+    assert os.path.exists(data_path)
 
     # start script
     main()
