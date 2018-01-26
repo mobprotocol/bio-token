@@ -1,51 +1,19 @@
-for now this is a playground for me to learn machine learning ... mostly biometric identity stuff.
+## Video Processing Pipeline ##
 
-biometric classifications seem to peek in accuracy at about 99%
+1. `python3 scripts/capture_video.py` [first_name] [last_name]
 
-the solution, combine face, ekg, and eeg data --> .01 ^ n
+Captures video via opencv and saves `.avi` --> `./data/captured/raw_video/`
 
-Keep false positives as low as possible, some leniency to false negatives
+2. `python3 scripts/analyze_video.py` [first_name] [last_name]
 
+Iterates through video and shows face and eye detection from haar cascades
 
-## Facial Recognition ##
+3. `python3 scripts/view_feature_detection.py` [first_name] [last_name]
 
-### Data Set: ####
-youtube faces data set
+Iterates through video and shoes feature detection from pre-trained dlib model
 
-https://www.cs.tau.ac.il/~wolf/ytfaces/index.html#download
+4. `python3 scripts/process_yt_data.py`
 
-will need to sign up here to receive access to ftp server
+Aligns and crops youtube_faes data set into face close-ups
 
-place in `data/youtube_faces/`
-
-####Data Processing: ####
-for now i am using json to organize data `person -> videos -> images`
-
-to process raw youtube_faces data into json:
-
-`python3 scripts/data_to_json.py`
-
---> output writes json to `./processed_data.json`
-
-to organize data into training and testing sets:
-
-`python 3 scripts/seperate_data.py`
-
---> `training_data.json`
-
---> `testing_data.json`
-
-
-Training:
-
-Feature Detection: dlib
-
-Convolutional
-
-## ECG data ##
-
-electrocardiogram using openbci system
-
-
-
-250 Hz sample rate
+--> `./processed_data/first_last/`
