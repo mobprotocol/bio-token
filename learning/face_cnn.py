@@ -19,7 +19,7 @@ class FaceNet():
     ''' pre-processing '''
     ########################################
 
-    def process_images(self):
+    def fetch_images(self):
         '''
             load image data into numpy array, convert into tensors
         '''
@@ -32,7 +32,6 @@ class FaceNet():
             if not name.startswith('.'):
 
                 # add to labels array
-                print(name)
                 self.labels.append(name)
 
                 for image_id in os.listdir('{0}/{1}'.format(self.data_path, name)):
@@ -45,7 +44,10 @@ class FaceNet():
                     # add to feature array
                     self.features.append(pixel_array)
 
-        self.num_people = len(self.features)
+        self.num_people = len(self.labels)
+
+    def input_pipeline(self):
+
 
 
     ########################################
@@ -67,7 +69,7 @@ class FaceNet():
 
     def deep_network(self):
         '''
-            sets up tg computational graph
+            sets up tf computational graph
             args:
                 x is a input tensor with dimensions (n_examples, 10000)
             returns:
