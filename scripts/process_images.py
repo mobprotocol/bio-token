@@ -23,7 +23,7 @@ def find_face(image, name):
     # using built-in haar cascades from opencv to find faces
     faces = face_cascade.detectMultiScale(gray_image, 1.3, 5)
 
-    # iterate through face
+    # iterate through faces
     for (x, y, w, h) in faces:
         # create rectangle frame around face
         cv2.rectangle(gray_image, (x, y), (x + y, y + h), (255, 0, 0), 2)

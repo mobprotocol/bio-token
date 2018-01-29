@@ -23,7 +23,10 @@ def detect_features(image):
     # find faces with pretrained dlib detector
     faces = detector(image, 1)
 
-    # iterate throuch detected faces
+    # list of feature sets
+    features = []
+
+    # iterate through detected faces
     for (i, face) in enumerate(faces):
 
         # get landmarks from image
@@ -32,8 +35,20 @@ def detect_features(image):
         # process landmark coordinates
         shape = shape_to_np(raw_shape)
 
-        return shape.tolist()
+        features.append(shape.tolist())
 
+    return features
+
+def align_face(image, faces):
+    '''
+        aligns pose to forward position
+        args:
+            cv2 image
+            list cv2 images (faces derived from base image)
+        returns:
+            list of cv2 images (aligned face close-ups)
+    '''
+    aligned_imags
 
 def convert_rect(frame):
     '''

@@ -48,16 +48,16 @@ def main():
                         # isolate face
                         close_up = find_faces(image)
 
-                        # get height and width
-                        h, w = close_up.shape
 
-                        resized_image = cv2.resize(close_up, (100, 100), interpolation=cv2.INTER_CUBIC)
-                        # f
-                        cv2.imshow('image', resized_image)
-                        cv2.waitKey(1)
+                        if close_up is not None:
+                            # get height and width
+                            h, w = close_up.shape
 
-                        # write image to disk
-                        cv2.imwrite('{0}/{1}/{2}.jpg'.format(write_path, person, image_id), resized_image)
+                            # resize image to be 100 by 100
+                            resized_image = cv2.resize(close_up, (100, 100), interpolation=cv2.INTER_CUBIC)
+
+                            # write image to disk
+                            cv2.imwrite('{0}/{1}/{2}.jpg'.format(write_path, person, image_id), resized_image)
 
 if __name__ == '__main__':
 

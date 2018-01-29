@@ -2,7 +2,7 @@ import json
 import os
 import cv2
 import dlib
-from feature_detection import detect_features
+from feature_detection import detect_features, convert_rect, shape_to_np
 
 def main():
     '''
