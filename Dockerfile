@@ -1,6 +1,10 @@
 FROM python:3
 
+ADD . /
+
 WORKDIR /
+
+ENV http_proxy host:port
 
 RUN pip install -r requirements.txt
 
