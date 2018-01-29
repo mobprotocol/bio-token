@@ -1,3 +1,8 @@
+/*
+  identity standard ERC725
+  https://github.com/ethereum/EIPs/issues/725
+*/
+
 pragma solidity ^0.4.18;
 
 contract ERC725 {
